@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   Body,
   Param
 } from '@nestjs/common';
@@ -26,5 +27,10 @@ export class UsersController {
   @Get(':id')
   async findById(@Param() param): Promise<User> {
     return this.usersService.findById(param.id);
+  }
+
+  @Put(':id')
+  async update(@Param() param, @Body() userDTO: UserDTO): Promise<User> {
+    return this.usersService.update(param.id, userDTO);
   }
 }
