@@ -17,4 +17,10 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     return this.userModel.find().exec();
   }
+
+  async findById(id: string): Promise<User> {
+    return id.match(/^[0-9a-fA-F]{24}$/)
+      ? await this.userModel.findOne({ _id: id })
+      : null;
+  }
 }

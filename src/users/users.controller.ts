@@ -2,7 +2,8 @@ import {
   Controller,
   Get,
   Post,
-  Body
+  Body,
+  Param
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDTO } from '../dto/user.dto';
@@ -20,5 +21,10 @@ export class UsersController {
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
+  }
+
+  @Get(':id')
+  async findById(@Param() param): Promise<User> {
+    return this.usersService.findById(param.id);
   }
 }
