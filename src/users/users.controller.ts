@@ -3,6 +3,7 @@ import {
   Get,
   Post,
   Put,
+  Delete,
   Body,
   Param
 } from '@nestjs/common';
@@ -32,5 +33,10 @@ export class UsersController {
   @Put(':id')
   async update(@Param() param, @Body() userDTO: UserDTO): Promise<User> {
     return this.usersService.update(param.id, userDTO);
+  }
+
+  @Delete(':id')
+  async delete(@Param() param): Promise<User> {
+    return this.usersService.delete(param.id);
   }
 }
