@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { LoggerService } from './logger/logger.service';
+import { LoggerModule } from './logger/logger.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -23,8 +25,10 @@ import configuration from './config/configuration';
       }),
       inject: [ConfigService],
     }),
+
+    LoggerModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [LoggerService],
 })
 export class AppModule {}
