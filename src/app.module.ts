@@ -17,6 +17,9 @@ import configuration from './config/configuration';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
         uri: `${configService.get('database.uri')}`,
+        useNewUrlParser: true,
+        useFindAndModify: false,
+        useCreateIndex: true
       }),
       inject: [ConfigService],
     }),
