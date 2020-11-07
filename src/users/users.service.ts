@@ -82,4 +82,20 @@ export class UsersService {
       return null;
     }
   }
+
+  async deleteBulk(ids: string[]) {
+    this.logger.debug(`Delete Users: ${ids.length}`);
+
+    if (ids.length <= 100) {
+      return this.userModel.deleteMany(
+        {
+          _id: {
+            $in: ids
+          }
+        }
+      );
+    } else {
+      return null;
+    }
+  }
 }

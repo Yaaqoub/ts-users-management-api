@@ -68,4 +68,15 @@ export class UsersController {
       return null;
     }
   }
+
+  @Post('/bulkDelete')
+  async deleteBulk(@Body() ids: string[]) {
+    this.logger.debug('Delete Users In Bulk!');
+
+    if (Array.isArray(ids)) {
+      return this.usersService.deleteBulk(ids);
+    } else {
+      return null;
+    }
+  }
 }
