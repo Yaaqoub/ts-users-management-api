@@ -51,4 +51,18 @@ export class UsersController {
     this.logger.debug('Delete User!');
     return this.usersService.delete(param.id);
   }
+
+  @Put(':id/archive')
+  async archive(@Param() param, @Body() userDTO: UserDTO): Promise<User> {
+    this.logger.debug('Archive User!');
+    let userData = {};
+
+    if (userDTO.hasOwnProperty('archived')) {
+      userData = {
+        archived: userDTO.archived
+      }
+    }
+
+    return this.usersService.archive(param.id, userData);
+  }
 }

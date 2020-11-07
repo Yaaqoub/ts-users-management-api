@@ -35,11 +35,16 @@ export class UsersService {
 
   async update(id: string, user: UserDTO): Promise<User> {
     this.logger.debug('Update User!');
-    return await this.userModel.findByIdAndUpdate(id, user, { new: true });
+    return this.userModel.findByIdAndUpdate(id, user, { new: true });
   }
 
   async delete(id: string): Promise<User> {
     this.logger.debug('Delete User!');
     return this.userModel.findByIdAndRemove(id);
+  }
+
+  async archive(id: string, userData): Promise<User> {
+    this.logger.debug('Archive User!');
+    return this.userModel.findByIdAndUpdate(id, userData, { new: true });
   }
 }
