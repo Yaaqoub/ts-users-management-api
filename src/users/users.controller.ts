@@ -57,4 +57,15 @@ export class UsersController {
     this.logger.debug('Archive User!');
     return this.usersService.archive(param.id, userDTO);
   }
+
+  @Post('/bulkCreate')
+  async createBulk(@Body() usersDTO: UserDTO[]): Promise<User[]> {
+    this.logger.debug('Create Users In Bulk!');
+
+    if (Array.isArray(usersDTO)) {
+      return this.usersService.createBulk(usersDTO);
+    } else {
+      return null;
+    }
+  }
 }

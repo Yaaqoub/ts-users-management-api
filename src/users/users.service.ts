@@ -60,4 +60,26 @@ export class UsersService {
 
     return this.userModel.findByIdAndUpdate(id, userData, { new: true });
   }
+
+  async createBulk(users: UserDTO[]) {
+    this.logger.debug(`Create Users: ${users.length}`);
+
+    const requiredUserFields = ['username', 'firstName', 'lastName', 'email', 'gender'];
+    const _users = [];
+
+    if (users.length <= 100) {
+
+      for (let i = 0; i < users.length; i++) {
+        const _user = users[i];
+
+        if (requiredUserFields.every(key => Object.keys(_user).includes(key))) {
+          _users.push(_user);
+        }
+      }
+
+      return this.userModel.insertMany(_users);
+    } else {
+      return null;
+    }
+  }
 }
