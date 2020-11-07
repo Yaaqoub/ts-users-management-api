@@ -35,6 +35,10 @@ export class UsersService {
 
   async update(id: string, user: UserDTO): Promise<User> {
     this.logger.debug('Update User!');
+
+    delete user.archived;
+    delete user.email;
+
     return this.userModel.findByIdAndUpdate(id, user, { new: true });
   }
 
@@ -43,8 +47,17 @@ export class UsersService {
     return this.userModel.findByIdAndRemove(id);
   }
 
-  async archive(id: string, userData): Promise<User> {
+  async archive(id: string, user: UserDTO): Promise<User> {
     this.logger.debug('Archive User!');
+
+    let userData = {};
+
+    if (user.hasOwnProperty('archived')) {
+      userData = {
+        archived: user.archived
+      }
+    }
+
     return this.userModel.findByIdAndUpdate(id, userData, { new: true });
   }
 }
