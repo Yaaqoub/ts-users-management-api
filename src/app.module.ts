@@ -4,6 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LoggerService } from './logger/logger.service';
 import { LoggerModule } from './logger/logger.module';
+import { FakeModule } from './fake/fake.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -27,6 +28,8 @@ import configuration from './config/configuration';
     }),
 
     LoggerModule,
+
+    FakeModule,
   ],
   controllers: [],
   providers: [LoggerService],
