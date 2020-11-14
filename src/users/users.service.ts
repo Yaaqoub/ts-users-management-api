@@ -21,9 +21,17 @@ export class UsersService {
     return newUser.save();
   }
 
-  async findAll(): Promise<User[]> {
+  async findAll(filters) {
     this.logger.debug('Get All Users!');
-    return this.userModel.find().exec();
+    const users = await this.userModel.find().skip(filters.page * filters.per_page).limit(filters.per_page).exec();
+    const usersTotal = await this.userModel.countDocuments();
+
+    return {
+      users: users,
+      page: filters.page,
+      pageSize: filters.per_page,
+      total: usersTotal
+    }
   }
 
   async findById(id: string): Promise<User> {

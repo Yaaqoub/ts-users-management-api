@@ -5,7 +5,8 @@ import {
   Put,
   Delete,
   Body,
-  Param
+  Param,
+  Query
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDTO } from '../dto/user.dto';
@@ -29,9 +30,13 @@ export class UsersController {
   }
 
   @Get()
-  async findAll(): Promise<User[]> {
+  async findAll(@Query() filters) {
     this.logger.debug('Get All Users!');
-    return this.usersService.findAll();
+
+    filters.page = Number(filters.page) ? Number(filters.page) : 0;
+    filters.per_page = Number(filters.per_page) ? Number(filters.per_page) : 100;
+
+    return this.usersService.findAll(filters);
   }
 
   @Get(':id')
