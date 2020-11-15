@@ -16,7 +16,10 @@ export class UsersService {
   }
 
   async create(user: UserDTO) {
-    this.logger.debug(`Create User: ${user.username}`);
+    this.logger.debug(`Create User!`);
+
+    delete user.archived;
+
     const newUser = new this.userModel(user);
     return newUser.save();
   }
@@ -81,6 +84,7 @@ export class UsersService {
         const _user = users[i];
 
         if (requiredUserFields.every(key => Object.keys(_user).includes(key))) {
+          delete _user.archived;
           _users.push(_user);
         }
       }
